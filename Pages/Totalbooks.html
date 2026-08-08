@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Nalandha - Total Books</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f8f9fa",
+            "outline-variant": "#cbd5e1",
+            "on-surface-variant": "#64748b",
+            "primary": "#0f172a",
+            "secondary": "#0284c7"
+          },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface-bright text-slate-800 font-sans h-full flex overflow-hidden">
+
+  <!-- Sidebar Navigation -->
+  <aside aria-label="Sidebar" class="bg-white border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-20 flex flex-col py-6 px-4">
+    <div class="px-2 mb-8 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-primary text-white font-bold text-xl flex items-center justify-center shadow-md">S</div>
+      <div>
+        <h1 class="font-bold text-base leading-tight text-primary">Nalandha</h1>
+        <p class="text-xs text-on-surface-variant font-medium">Catalog Management</p>
+      </div>
+    </div>
+
+    <!-- UNIFIED 7-ITEM SIDEBAR NAVIGATION -->
+    <nav class="flex-1 space-y-1.5">
+      <a href="dashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="AssignBook.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">assignment_turned_in</span>
+        <span>Assign Book</span>
+      </a>
+
+      <a href="book_history.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">book_online</span>
+        <span>Book History</span>
+      </a>
+
+      <a href="Totalbooks.html" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-secondary bg-sky-50 border-r-4 border-secondary transition-all">
+        <span class="material-symbols-outlined">library_books</span>
+        <span>Total Books</span>
+      </a>
+
+      <a href="active-members.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">group</span>
+        <span>Active Members</span>
+      </a>
+
+      <a href="program.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">event</span>
+        <span>Programs & Events</span>
+      </a>
+
+      <a href="finance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Income & Expense</span>
+      </a>
+    </nav>
+
+    <div class="pt-4 border-t border-outline-variant flex items-center gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold text-slate-800 truncate">Admin User</p>
+        <p class="text-[11px] text-slate-500 truncate">admin@scholararchive.edu</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Canvas -->
+  <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="bg-white border-b border-outline-variant h-16 px-8 flex justify-between items-center shrink-0">
+      <h2 class="font-bold text-lg text-primary">Library Book Collection</h2>
+      <button onclick="openAddBookModal()" class="bg-secondary text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-sky-700 flex items-center gap-1.5 shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">add</span> Add New Book
+      </button>
+    </header>
+
+    <!-- Content Area -->
+    <main class="flex-1 overflow-y-auto p-8 space-y-6">
+      
+      <!-- Search & Category Filter Controls -->
+      <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-outline-variant shadow-sm">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1 max-w-md">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+          <input id="book-search-input" onkeyup="filterBooks()" type="text" placeholder="Search by title, author, or book number..." class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 pl-10 pr-4 text-xs outline-none focus:ring-2 focus:ring-secondary/30"/>
+        </div>
+
+        <!-- Category Buttons -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+          <button onclick="filterCategory('All')" class="cat-btn active bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">All</button>
+          <button onclick="filterCategory('Novel')" class="cat-btn bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors">Novels</button>
+          <button onclick="filterCategory('Poem')" class="cat-btn bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors">Poems</button>
+          <button onclick="filterCategory('Short Story')" class="cat-btn bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors">Short Stories</button>
+          <button onclick="filterCategory('Science')" class="cat-btn bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors">Science</button>
+        </div>
+
+      </div>
+
+      <!-- Books Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="books-grid">
+        <!-- Dynamic Content -->
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD NEW BOOK -->
+  <div id="add-book-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+        <h3 class="font-bold text-base text-primary">Add New Book Volume</h3>
+        <button onclick="toggleModal('add-book-modal', false)" class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <form onsubmit="addNewBook(event)" class="space-y-3 text-xs">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-600">Book Number / Code *</label>
+            <button type="button" onclick="suggestNextBookNumber()" class="text-[10px] text-secondary font-bold hover:underline">Auto-Suggest</button>
+          </div>
+          <input required id="new-book-number" oninput="checkRealtimeDuplicates()" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30 uppercase font-mono" placeholder="e.g. BK-1001"/>
+          <p id="book-number-warn" class="text-[11px] text-red-500 font-medium hidden mt-1"></p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Book Title *</label>
+          <input required id="new-title" oninput="checkRealtimeDuplicates()" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="e.g. To Kill a Mockingbird"/>
+          <p id="title-warn" class="text-[11px] text-red-500 font-medium hidden mt-1"></p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Author Name *</label>
+          <input required id="new-author" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="e.g. Harper Lee"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">Category</label>
+            <select id="new-category" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none">
+              <option>Novel</option>
+              <option>Poem</option>
+              <option>Short Story</option>
+              <option>Science</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">ISBN Code</label>
+            <input id="new-isbn" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none" placeholder="978-01..."/>
+          </div>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="toggleModal('add-book-modal', false)" class="px-4 py-2 rounded-xl font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
+          <button type="submit" id="submit-btn" class="px-4 py-2 rounded-xl font-semibold bg-secondary text-white hover:bg-sky-700 flex items-center gap-2">
+            <span>Add Book</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:5000/api/books";
+
+    let booksData = [];
+    let activeCategory = "All";
+
+    async function fetchBooksFromDatabase() {
+      const grid = document.getElementById('books-grid');
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-16 text-slate-500 text-xs flex flex-col items-center gap-2">
+          <span class="material-symbols-outlined animate-spin text-3xl text-secondary">sync</span>
+          <span>Loading collection from MySQL database...</span>
+        </div>`;
+
+      try {
+        const response = await fetch(API_URL + "?action=getBooks");
+        const result = await response.json();
+
+        if (result.status === "success") {
+          booksData = result.data;
+          renderBooks();
+        } else {
+          grid.innerHTML = `<div class="col-span-full text-center py-12 text-red-500 text-xs">Failed to load data from MySQL database.</div>`;
+        }
+      } catch (error) {
+        console.error("Error fetching MySQL data:", error);
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-red-500 text-xs">Unable to connect to local MySQL server. Make sure "node server.js" is running in Terminal.</div>`;
+      }
+    }
+
+    function renderBooks() {
+      const grid = document.getElementById('books-grid');
+      const searchVal = document.getElementById('book-search-input').value.toLowerCase();
+
+      const filtered = booksData.filter(b => {
+        const matchesCategory = (activeCategory === "All" || b.category === activeCategory);
+        const matchesSearch = (b.title && b.title.toLowerCase().includes(searchVal)) || 
+                              (b.author && b.author.toLowerCase().includes(searchVal)) ||
+                              (b.bookNumber && b.bookNumber.toLowerCase().includes(searchVal));
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 text-xs">No books found in MySQL database.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(b => {
+        const isAssigned = b.assignedTo && b.assignedTo.trim() !== "";
+        return `
+          <div class="bg-white p-5 rounded-2xl border border-outline-variant hover:border-secondary transition-all shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 uppercase tracking-wider">${b.category || 'General'}</span>
+                ${isAssigned ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Assigned</span>` : `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Available</span>`}
+              </div>
+              <div class="mt-2 text-[10px] font-mono font-bold text-slate-400">#${b.bookNumber || 'N/A'}</div>
+              <h4 class="font-bold text-sm text-slate-900 line-clamp-1">${b.title}</h4>
+              <p class="text-xs text-slate-500">${b.author}</p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-[11px] text-slate-500 font-sans">
+              <span>Status:</span>
+              <span class="font-bold ${isAssigned ? 'text-amber-700' : 'text-emerald-700'}">${isAssigned ? 'To: ' + b.assignedTo : 'Available'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.innerText.includes(cat) || (cat === "All" && btn.innerText === "All")) {
+          btn.className = "cat-btn active bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors";
+        } else {
+          btn.className = "cat-btn bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-200 transition-colors";
+        }
+      });
+      renderBooks();
+    }
+
+    function filterBooks() {
+      renderBooks();
+    }
+
+    function toggleModal(modalId, show) {
+      document.getElementById(modalId).classList.toggle('hidden', !show);
+    }
+
+    function openAddBookModal() {
+      document.getElementById('book-number-warn').classList.add('hidden');
+      document.getElementById('title-warn').classList.add('hidden');
+      suggestNextBookNumber();
+      toggleModal('add-book-modal', true);
+    }
+
+    function suggestNextBookNumber() {
+      let maxNum = 1000;
+      booksData.forEach(b => {
+        if (b.bookNumber) {
+          const match = b.bookNumber.match(/\d+/);
+          if (match) {
+            const num = parseInt(match[0], 10);
+            if (num > maxNum) maxNum = num;
+          }
+        }
+      });
+      document.getElementById('new-book-number').value = `BK-${maxNum + 1}`;
+      checkRealtimeDuplicates();
+    }
+
+    function checkRealtimeDuplicates() {
+      const bookNumInput = document.getElementById('new-book-number').value.trim().toLowerCase();
+      const titleInput = document.getElementById('new-title').value.trim().toLowerCase();
+
+      const numWarn = document.getElementById('book-number-warn');
+      const titleWarn = document.getElementById('title-warn');
+
+      const isNumDuplicate = booksData.some(b => b.bookNumber && b.bookNumber.trim().toLowerCase() === bookNumInput);
+      const isTitleDuplicate = booksData.some(b => b.title && b.title.trim().toLowerCase() === titleInput);
+
+      if (isNumDuplicate && bookNumInput !== "") {
+        numWarn.innerText = "⚠ Warning: This Book Number already exists!";
+        numWarn.classList.remove('hidden');
+      } else {
+        numWarn.classList.add('hidden');
+      }
+
+      if (isTitleDuplicate && titleInput !== "") {
+        titleWarn.innerText = "⚠ Warning: A book with this title already exists!";
+        titleWarn.classList.remove('hidden');
+      } else {
+        titleWarn.classList.add('hidden');
+      }
+
+      return { isNumDuplicate, isTitleDuplicate };
+    }
+
+    async function addNewBook(e) {
+      e.preventDefault();
+
+      const bookNumVal = document.getElementById('new-book-number').value.trim();
+      const titleVal = document.getElementById('new-title').value.trim();
+
+      const { isNumDuplicate, isTitleDuplicate } = checkRealtimeDuplicates();
+
+      if (isNumDuplicate) {
+        alert(`❌ Cannot add book!\n\nBook Number "${bookNumVal}" is already registered in the database.`);
+        return;
+      }
+
+      if (isTitleDuplicate) {
+        alert(`❌ Cannot add book!\n\nBook Title "${titleVal}" already exists in the database.`);
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">sync</span> Saving...`;
+
+      const newBookObj = {
+        action: 'addBook',
+        bookNumber: bookNumVal,
+        title: titleVal,
+        author: document.getElementById('new-author').value,
+        category: document.getElementById('new-category').value,
+        isbn: document.getElementById('new-isbn').value || "978-0000000"
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newBookObj)
+        });
+
+        const result = await response.json();
+
+        if (result.status === "error") {
+          alert(`❌ Server Error: ${result.message}`);
+        } else {
+          alert("✅ Book successfully added to MySQL database!");
+          toggleModal('add-book-modal', false);
+          e.target.reset();
+          fetchBooksFromDatabase();
+        }
+      } catch (error) {
+        console.error("Error adding book:", error);
+        alert("Failed to save book to MySQL database. Ensure server.js is running.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Add Book</span>`;
+      }
+    }
+
+    fetchBooksFromDatabase();
+  </script>
+</body>
+</html>

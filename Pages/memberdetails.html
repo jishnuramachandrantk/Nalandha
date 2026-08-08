@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Member Details - Scholar Archive</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f8f9fa",
+            "outline-variant": "#e2e8f0",
+            "on-surface-variant": "#64748b",
+            "primary": "#0f172a",
+            "secondary": "#0284c7"
+          },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface-bright text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-outline-variant h-16 px-8 flex justify-between items-center">
+    <a href="active-members.html" class="text-xs font-semibold text-secondary flex items-center gap-1 hover:underline">
+      ← Back to Active Members
+    </a>
+    <span class="font-bold text-sm text-primary">Member Detailed Record</span>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto p-6 space-y-6">
+    
+    <!-- Header Summary Card -->
+    <div class="bg-white rounded-3xl p-6 border border-outline-variant shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white font-bold text-xl flex items-center justify-center" id="m-avatar">E</div>
+        <div>
+          <h2 class="text-xl font-bold text-primary" id="m-name">Member Name</h2>
+          <p class="text-xs text-on-surface-variant" id="m-email">member@email.com</p>
+        </div>
+      </div>
+      <button onclick="togglePersonalModal(true)" class="bg-secondary text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-sky-700 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">visibility</span> View Personal Details
+      </button>
+    </div>
+
+    <!-- BORROWING HISTORY SECTION -->
+    <section class="bg-white rounded-3xl border border-outline-variant p-6 shadow-sm space-y-4">
+      <div>
+        <h3 class="font-bold text-base text-primary">Book Borrowing & Resubmission History</h3>
+        <p class="text-xs text-on-surface-variant">Lifetime record of checked out books and submission dates.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-50 border-b border-outline-variant font-bold text-slate-500 uppercase tracking-wider">
+              <th class="p-3">Book Title</th>
+              <th class="p-3">Author</th>
+              <th class="p-3">Checkout Date</th>
+              <th class="p-3">Resubmitted Date</th>
+              <th class="p-3 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700" id="history-rows">
+            <tr>
+              <td class="p-3 font-semibold text-slate-900">Ethics for Everyday Life</td>
+              <td class="p-3">Harper Lee</td>
+              <td class="p-3">Oct 12, 2026</td>
+              <td class="p-3">Oct 24, 2026</td>
+              <td class="p-3 text-right"><span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Returned</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-slate-900">Critique of Pure Reason</td>
+              <td class="p-3">Immanuel Kant</td>
+              <td class="p-3">Nov 01, 2026</td>
+              <td class="p-3 font-medium text-amber-600">Pending Return</td>
+              <td class="p-3 text-right"><span class="px-2 py-1 rounded-full bg-amber-100 text-amber-800 font-bold">In Hand</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- PERSONAL DETAILS MODAL -->
+  <div id="personal-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4 relative shadow-2xl">
+      <button onclick="togglePersonalModal(false)" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <h3 class="font-bold text-lg text-primary border-b border-slate-100 pb-3">Complete Personal Information</h3>
+
+      <div class="grid grid-cols-2 gap-4 text-xs">
+        <div><span class="text-slate-400 font-medium">First Name</span><p class="font-bold text-slate-800" id="pd-fname">Eleanor</p></div>
+        <div><span class="text-slate-400 font-medium">Last Name</span><p class="font-bold text-slate-800" id="pd-lname">Shellstrop</p></div>
+        <div><span class="text-slate-400 font-medium">Mobile Number</span><p class="font-bold text-slate-800" id="pd-mobile">+1 555-0192</p></div>
+        <div><span class="text-slate-400 font-medium">Pincode</span><p class="font-bold text-slate-800" id="pd-pincode">673001</p></div>
+        <div class="col-span-2"><span class="text-slate-400 font-medium">Street Address</span><p class="font-bold text-slate-800" id="pd-address">123 Heritage Avenue</p></div>
+        <div><span class="text-slate-400 font-medium">Village / Town</span><p class="font-bold text-slate-800" id="pd-village">Greenwood</p></div>
+        <div><span class="text-slate-400 font-medium">District</span><p class="font-bold text-slate-800" id="pd-district">Central District</p></div>
+        <div class="col-span-2 bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 font-medium">Encrypted Password</span><p class="font-mono font-bold text-slate-800">••••••••</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePersonalModal(show) {
+      document.getElementById('personal-modal').classList.toggle('hidden', !show);
+    }
+  </script>
+</body>
+</html>

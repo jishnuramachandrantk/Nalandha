@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Nalandha - Active Members</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f8f9fa",
+            "outline-variant": "#cbd5e1",
+            "on-surface-variant": "#64748b",
+            "primary": "#0f172a",
+            "secondary": "#0284c7"
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            malayalam: ['Gayathri', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined { display: inline-block; vertical-align: middle; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
+
+    /* PRINTING FORMAT MATCHING DESIGN */
+    @media print {
+      @page { size: A4 portrait; margin: 10mm 15mm; }
+      body { background: white !important; color: black !important; margin: 0 !important; padding: 0 !important; }
+      body * { visibility: hidden !important; }
+      #print-document, #print-document * { visibility: visible !important; }
+      #print-document { display: block !important; position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+      .no-print { display: none !important; }
+      .pdf-header-title { text-align: center !important; font-family: 'Gayathri', 'sans-serif' !important; font-size: 18px !important; font-weight: 700 !important; padding: 6px 10px !important; border: 2px solid #000 !important; border-bottom: 1px solid #000 !important; line-height: 1.3 !important; }
+      .pdf-header-sub { text-align: center !important; font-family: 'Gayathri', 'sans-serif' !important; font-size: 15px !important; font-weight: 700 !important; padding: 4px 10px !important; border-left: 2px solid #000 !important; border-right: 2px solid #000 !important; border-bottom: 2px solid #000 !important; margin-bottom: -1px !important; }
+      .pdf-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; margin: 0 !important; }
+      .pdf-table th { background-color: #ffff00 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; border: 2px solid #000 !important; font-size: 12px !important; font-weight: 800 !important; padding: 6px 8px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; color: #000 !important; }
+      .pdf-table td { border: 1px solid #000 !important; border-left: 2px solid #000 !important; border-right: 2px solid #000 !important; font-size: 12px !important; padding: 6px 8px !important; font-family: 'Plus Jakarta Sans', sans-serif !important; color: #000 !important; vertical-align: middle !important; word-wrap: break-word !important; }
+      .pdf-table tr:last-child td { border-bottom: 2px solid #000 !important; }
+      .col-id { width: 15% !important; text-align: center !important; }
+      .col-name { width: 45% !important; text-align: left !important; }
+      .col-date { width: 25% !important; text-align: center !important; }
+      .col-status { width: 15% !important; text-align: center !important; }
+    }
+  </style>
+</head>
+<body class="bg-surface-bright text-slate-800 font-sans h-full flex overflow-hidden">
+
+  <!-- Sidebar Navigation -->
+  <aside aria-label="Sidebar" class="bg-white border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-20 flex flex-col py-6 px-4 no-print">
+    <div class="px-2 mb-8 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-primary text-white font-bold text-xl flex items-center justify-center">S</div>
+      <div>
+        <h1 class="font-bold text-base leading-tight text-primary">Nalandha</h1>
+        <p class="text-xs text-on-surface-variant">Admin Directory</p>
+      </div>
+    </div>
+
+    <!-- UNIFIED 7-ITEM SIDEBAR NAVIGATION -->
+    <nav class="flex-1 space-y-1.5">
+      <a href="dashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="AssignBook.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">assignment_turned_in</span>
+        <span>Assign Book</span>
+      </a>
+
+      <a href="book_history.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">book_online</span>
+        <span>Book History</span>
+      </a>
+
+      <a href="Totalbooks.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">library_books</span>
+        <span>Total Books</span>
+      </a>
+
+      <a href="active-members.html" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-secondary bg-sky-50 border-r-4 border-secondary transition-all">
+        <span class="material-symbols-outlined">group</span>
+        <span>Active Members</span>
+      </a>
+
+      <a href="program.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">event</span>
+        <span>Programs & Events</span>
+      </a>
+
+      <a href="finance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Income & Expense</span>
+      </a>
+    </nav>
+
+    <div class="pt-4 border-t border-outline-variant flex items-center gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold text-slate-800 truncate">Admin User</p>
+        <p class="text-[11px] text-slate-500 truncate">admin@scholararchive.edu</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+    <header class="bg-white border-b border-outline-variant h-16 px-8 flex justify-between items-center shrink-0 no-print">
+      <h2 class="font-bold text-lg text-primary">Active Members Directory</h2>
+      
+      <div class="flex items-center gap-3">
+        <button onclick="triggerPrint()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-300">
+          <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> Print / Export PDF
+        </button>
+
+        <button onclick="toggleModal('add-member-modal', true)" class="bg-secondary text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-sky-700 flex items-center gap-1.5 shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">person_add</span> Add New Membership
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-8 space-y-6 no-print">
+      
+      <!-- DASHBOARD CARDS METRICS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div id="card-filter-all" onclick="filterByStatus('All')" class="stat-card active bg-white p-5 rounded-2xl border-2 border-secondary shadow-sm flex justify-between items-center cursor-pointer hover:shadow-md transition-all">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Members</span>
+            <div id="stat-total-members" class="text-3xl font-extrabold text-primary mt-1">0</div>
+            <p class="text-[11px] text-secondary font-semibold mt-1 flex items-center gap-0.5">
+              <span>Click to view all</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </p>
+          </div>
+          <span class="material-symbols-outlined text-secondary bg-sky-50 p-3 rounded-2xl text-2xl">group</span>
+        </div>
+
+        <div id="card-filter-active" onclick="filterByStatus('Active')" class="stat-card bg-white p-5 rounded-2xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer hover:border-emerald-500 hover:shadow-md transition-all">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Members</span>
+            <div id="stat-active-members" class="text-3xl font-extrabold text-emerald-600 mt-1">0</div>
+            <p class="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-0.5">
+              <span>Click to filter active</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </p>
+          </div>
+          <span class="material-symbols-outlined text-emerald-600 bg-emerald-50 p-3 rounded-2xl text-2xl">check_circle</span>
+        </div>
+
+        <div id="card-filter-inactive" onclick="filterByStatus('Inactive')" class="stat-card bg-white p-5 rounded-2xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer hover:border-rose-500 hover:shadow-md transition-all">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Inactive Members</span>
+            <div id="stat-inactive-members" class="text-3xl font-extrabold text-rose-600 mt-1">0</div>
+            <p class="text-[11px] text-rose-600 font-semibold mt-1 flex items-center gap-0.5">
+              <span>Click to filter inactive</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </p>
+          </div>
+          <span class="material-symbols-outlined text-rose-600 bg-rose-50 p-3 rounded-2xl text-2xl">block</span>
+        </div>
+      </div>
+
+      <!-- Search & Filter Controls -->
+      <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-outline-variant shadow-sm">
+        <p id="table-filter-text" class="text-xs text-on-surface-variant font-semibold">Showing All Members from MySQL Database.</p>
+        <div class="relative max-w-xs w-full">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+          <input id="search-input" onkeyup="filterMembers()" type="text" placeholder="Search name, phone, or district..." class="w-full bg-slate-50 border border-slate-200 rounded-xl py-2 pl-9 pr-3 text-xs outline-none focus:ring-2 focus:ring-secondary/30"/>
+        </div>
+      </div>
+
+      <!-- Members Table -->
+      <div class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-50 border-b border-outline-variant font-bold text-on-surface-variant uppercase tracking-wider">
+                <th class="py-3.5 px-6">Member ID & Name</th>
+                <th class="py-3.5 px-6">Address & District</th>
+                <th class="py-3.5 px-6">Phone Number</th>
+                <th class="py-3.5 px-6">Password</th>
+                <th class="py-3.5 px-6">Status</th>
+                <th class="py-3.5 px-6 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="members-table-body" class="divide-y divide-slate-100">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- PRINT DOCUMENT TEMPLATE -->
+    <div id="print-document" class="hidden">
+      <div class="pdf-header-title">
+        നളന്ദ വനിതാ ഗ്രന്ഥാലയം &amp; വായനശാല ആവുന്തികാട്ടുപറമ്പ് വെട്ടത്തൂർ
+      </div>
+      <div class="pdf-header-sub">
+        രജിസ്റ്റർ നമ്പർ : 10 KTY 7468
+      </div>
+
+      <table class="pdf-table">
+        <thead>
+          <tr>
+            <th class="col-id">ID</th>
+            <th class="col-name">Name</th>
+            <th class="col-date">Registration date</th>
+            <th class="col-status">Status</th>
+          </tr>
+        </thead>
+        <tbody id="pdf-table-body">
+          <!-- Filled dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- MODAL 1: ADD MEMBER -->
+  <div id="add-member-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden no-print">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+        <h3 class="font-bold text-base text-primary">New Member Registration</h3>
+        <button onclick="toggleModal('add-member-modal', false)" class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <form onsubmit="addNewMember(event)" class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">First Name *</label>
+            <input required id="new-fname" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="e.g. John"/>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">Last Name *</label>
+            <input required id="new-lname" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="e.g. Doe"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Address *</label>
+          <input required id="new-address" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="Street Address / House No."/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">District *</label>
+            <input required id="new-district" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="e.g. Central"/>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">Phone Number *</label>
+            <input required id="new-mobile" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="+1 555-0000"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Password *</label>
+          <input required id="new-password" type="password" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="••••••••"/>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="toggleModal('add-member-modal', false)" class="px-4 py-2 rounded-xl font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
+          <button type="submit" id="add-submit-btn" class="px-4 py-2 rounded-xl font-semibold bg-secondary text-white hover:bg-sky-700">Submit Registration</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: EDIT MEMBER -->
+  <div id="edit-member-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden no-print">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+        <h3 class="font-bold text-base text-primary">Edit Member Account</h3>
+        <button onclick="toggleModal('edit-member-modal', false)" class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <form onsubmit="updateMember(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Member Name</label>
+          <input id="edit-name" type="text" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 outline-none font-semibold text-slate-700"/>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Phone Number *</label>
+          <input required id="edit-mobile" type="text" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30"/>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Password *</label>
+          <input required id="edit-password" type="password" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30" placeholder="••••••••"/>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Membership Status</label>
+          <select id="edit-status" class="w-full border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-secondary/30">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="toggleModal('edit-member-modal', false)" class="px-4 py-2 rounded-xl font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
+          <button type="submit" id="edit-submit-btn" class="px-4 py-2 rounded-xl font-semibold bg-emerald-600 text-white hover:bg-emerald-700">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const MYSQL_MEMBERS_URL = "http://localhost:5000/api/members";
+
+    let membersData = [];
+    let selectedMemberId = null;
+    let currentStatusFilter = "All";
+
+    async function fetchMembersFromDatabase() {
+      const tbody = document.getElementById('members-table-body');
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="py-12 text-center text-slate-400">
+            <span class="material-symbols-outlined animate-spin text-2xl text-secondary">sync</span>
+            <div class="mt-1">Loading members from MySQL...</div>
+          </td>
+        </tr>`;
+
+      try {
+        const response = await fetch(MYSQL_MEMBERS_URL);
+        const result = await response.json();
+
+        if (result.status === "success") {
+          membersData = result.data;
+          updateDashboardStats(membersData);
+          renderMembersTable();
+        } else {
+          tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-rose-500">Failed to load members from MySQL.</td></tr>`;
+        }
+      } catch (error) {
+        console.error("Error fetching members:", error);
+        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-rose-500">Unable to connect to local MySQL server. Make sure "node server.js" is running.</td></tr>`;
+      }
+    }
+
+    function updateDashboardStats(data) {
+      const total = data.length;
+      const active = data.filter(m => m.status === 'Active').length;
+      const inactive = data.filter(m => m.status === 'Inactive').length;
+
+      document.getElementById('stat-total-members').innerText = total.toLocaleString();
+      document.getElementById('stat-active-members').innerText = active.toLocaleString();
+      document.getElementById('stat-inactive-members').innerText = inactive.toLocaleString();
+    }
+
+    function filterByStatus(status) {
+      currentStatusFilter = status;
+
+      document.querySelectorAll('.stat-card').forEach(card => {
+        card.classList.remove('border-2', 'border-secondary', 'border-emerald-500', 'border-rose-500');
+        card.classList.add('border', 'border-outline-variant');
+      });
+
+      if (status === 'All') {
+        document.getElementById('card-filter-all').classList.remove('border', 'border-outline-variant');
+        document.getElementById('card-filter-all').classList.add('border-2', 'border-secondary');
+        document.getElementById('table-filter-text').innerText = "Showing All Members from MySQL Database.";
+      } else if (status === 'Active') {
+        document.getElementById('card-filter-active').classList.remove('border', 'border-outline-variant');
+        document.getElementById('card-filter-active').classList.add('border-2', 'border-emerald-500');
+        document.getElementById('table-filter-text').innerText = "Showing Active Members Only.";
+      } else if (status === 'Inactive') {
+        document.getElementById('card-filter-inactive').classList.remove('border', 'border-outline-variant');
+        document.getElementById('card-filter-inactive').classList.add('border-2', 'border-rose-500');
+        document.getElementById('table-filter-text').innerText = "Showing Inactive Members Only.";
+      }
+
+      renderMembersTable();
+    }
+
+    function getFilteredMembersList() {
+      const searchVal = document.getElementById('search-input').value.toLowerCase();
+
+      return membersData.filter(m => {
+        const matchesStatus = (currentStatusFilter === "All" || m.status === currentStatusFilter);
+        const matchesSearch = (m.name && m.name.toLowerCase().includes(searchVal)) ||
+                              (m.mobile && m.mobile.toLowerCase().includes(searchVal)) ||
+                              (m.district && m.district.toLowerCase().includes(searchVal));
+
+        return matchesStatus && matchesSearch;
+      });
+    }
+
+    function renderMembersTable() {
+      const tbody = document.getElementById('members-table-body');
+      const filtered = getFilteredMembersList();
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-slate-400">No matching members found in MySQL database.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(m => `
+        <tr class="hover:bg-slate-50 transition-colors">
+          <td class="py-3.5 px-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-xs shrink-0">
+                ${m.firstName ? m.firstName.charAt(0) : 'M'}
+              </div>
+              <div>
+                <div class="font-bold text-slate-900">${m.name}</div>
+                <div class="text-[10px] text-slate-400">ID: #${m.id}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3.5 px-6 font-medium text-slate-600">${m.address}, ${m.district}</td>
+          <td class="py-3.5 px-6 font-semibold text-slate-800">${m.mobile}</td>
+          <td class="py-3.5 px-6"><span class="font-mono bg-slate-100 px-2.5 py-0.5 rounded text-slate-500 font-bold">••••••••</span></td>
+          <td class="py-3.5 px-6">
+            <span class="px-2.5 py-1 rounded-full ${m.status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'} font-bold text-[10px]">
+              ${m.status}
+            </span>
+          </td>
+          <td class="py-3.5 px-6 text-right">
+            <button onclick="openEditModal('${m.id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-secondary hover:text-white text-slate-700 font-semibold rounded-xl text-xs transition-colors inline-flex items-center gap-1">
+              <span class="material-symbols-outlined text-[15px]">edit</span>
+              <span>Edit Account</span>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterMembers() {
+      renderMembersTable();
+    }
+
+    function toggleModal(modalId, show) {
+      document.getElementById(modalId).classList.toggle('hidden', !show);
+    }
+
+    async function addNewMember(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('add-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">sync</span> Saving...`;
+
+      const newMemberObj = {
+        action: 'addMember',
+        firstName: document.getElementById('new-fname').value,
+        lastName: document.getElementById('new-lname').value,
+        address: document.getElementById('new-address').value,
+        district: document.getElementById('new-district').value,
+        mobile: document.getElementById('new-mobile').value,
+        password: document.getElementById('new-password').value
+      };
+
+      try {
+        const response = await fetch(MYSQL_MEMBERS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newMemberObj)
+        });
+
+        const result = await response.json();
+
+        if (result.status === "error") {
+          alert(`❌ ${result.message}`);
+        } else {
+          alert("✅ Membership created successfully in MySQL!");
+          e.target.reset();
+          toggleModal('add-member-modal', false);
+          fetchMembersFromDatabase();
+        }
+      } catch (err) {
+        console.error("Add member error:", err);
+        alert("Failed to create membership. Ensure node server.js is running.");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `Submit Registration`;
+      }
+    }
+
+    function openEditModal(memberId) {
+      selectedMemberId = memberId;
+      const member = membersData.find(m => String(m.id) === String(memberId));
+      if (member) {
+        document.getElementById('edit-name').value = member.name;
+        document.getElementById('edit-mobile').value = member.mobile;
+        document.getElementById('edit-password').value = member.password;
+        document.getElementById('edit-status').value = member.status;
+        toggleModal('edit-member-modal', true);
+      }
+    }
+
+    async function updateMember(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('edit-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">sync</span> Updating...`;
+
+      const updateObj = {
+        action: 'updateMember',
+        id: selectedMemberId,
+        mobile: document.getElementById('edit-mobile').value,
+        password: document.getElementById('edit-password').value,
+        status: document.getElementById('edit-status').value
+      };
+
+      try {
+        const response = await fetch(MYSQL_MEMBERS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updateObj)
+        });
+
+        const result = await response.json();
+
+        if (result.status === "error") {
+          alert(`❌ ${result.message}`);
+        } else {
+          alert("✅ Member updated in MySQL!");
+          toggleModal('edit-member-modal', false);
+          fetchMembersFromDatabase();
+        }
+      } catch (err) {
+        console.error("Update member error:", err);
+        alert("Failed to update member in MySQL database.");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `Save Changes`;
+      }
+    }
+
+    function triggerPrint() {
+      const printDoc = document.getElementById('print-document');
+      const pdfBody = document.getElementById('pdf-table-body');
+      const filteredList = getFilteredMembersList();
+
+      if (filteredList.length === 0) {
+        alert("No member records available to print.");
+        return;
+      }
+
+      pdfBody.innerHTML = filteredList.map(m => `
+        <tr>
+          <td class="col-id">${m.id}</td>
+          <td class="col-name">${m.name}</td>
+          <td class="col-date">${m.createdDate || 'N/A'}</td>
+          <td class="col-status">${m.status}</td>
+        </tr>
+      `).join('');
+
+      printDoc.classList.remove('hidden');
+      window.print();
+      printDoc.classList.add('hidden');
+    }
+
+    fetchMembersFromDatabase();
+  </script>
+</body>
+</html>
