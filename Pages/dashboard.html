@@ -29,62 +29,84 @@
 
   <style>
     .material-symbols-outlined { display: inline-block; vertical-align: middle; }
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
+    
+    /* Collapsed Desktop Sidebar Styles */
+    .sidebar-collapsed { width: 4.75rem !important; }
+    .sidebar-collapsed .brand-text,
+    .sidebar-collapsed .nav-text,
+    .sidebar-collapsed .user-info { display: none !important; }
+    .sidebar-collapsed .brand-container { padding-left: 0.25rem; padding-right: 0.25rem; justify-content: center; }
+    .sidebar-collapsed .nav-link { justify-content: center; padding-left: 0; padding-right: 0; }
+    .main-expanded { margin-left: 4.75rem !important; }
   </style>
 </head>
-<body class="bg-surface-bright text-on-surface font-sans antialiased h-full flex overflow-hidden">
+<body class="bg-surface-bright text-on-surface font-sans antialiased h-full flex overflow-x-hidden">
+
+  <!-- Mobile Overlay Backdrop -->
+  <div id="mobile-backdrop" onclick="toggleSidebarMenu(false)" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity"></div>
 
   <!-- Sidebar Navigation -->
-  <aside aria-label="Sidebar" class="bg-white border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-20 flex flex-col py-6 px-4">
-    <div class="px-2 mb-8 flex items-center gap-3">
-      <div class="w-10 h-10 rounded-2xl bg-primary text-white font-bold text-xl flex items-center justify-center shadow-md">S</div>
-      <div>
-        <h1 class="font-bold text-base leading-tight text-primary">Nalandha</h1>
-        <p class="text-xs text-on-surface-variant font-medium">Intellectual Sanctuary</p>
+  <aside id="sidebar" class="bg-white border-r border-outline-variant h-full w-64 fixed left-0 top-0 z-40 flex flex-col py-6 px-4 transition-all duration-300 -translate-x-full lg:translate-x-0 shrink-0">
+    
+    <!-- Top Left Brand Header (Clickable Menu Trigger) -->
+    <div onclick="toggleSidebarMenu()" title="Click to toggle menu" class="brand-container px-2 mb-8 flex items-center justify-between w-full rounded-2xl p-2 hover:bg-slate-100 transition-all cursor-pointer group">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-primary text-white font-bold text-xl flex items-center justify-center shadow-md shrink-0 group-hover:scale-105 transition-transform">S</div>
+        <div class="brand-text min-w-0 flex-1">
+          <h1 class="font-bold text-base leading-tight text-primary truncate">Nalandha</h1>
+          <p class="text-xs text-on-surface-variant font-medium truncate">Intellectual Sanctuary</p>
+        </div>
       </div>
+      <!-- Close icon on Mobile -->
+      <button onclick="event.stopPropagation(); toggleSidebarMenu(false)" class="lg:hidden text-slate-400 hover:text-slate-700 p-1">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
     </div>
 
     <!-- UNIFIED SIDEBAR NAVIGATION -->
-    <nav class="flex-1 space-y-1.5">
-      <a href="dashboard.html" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-secondary bg-sky-50 border-r-4 border-secondary transition-all">
-        <span class="material-symbols-outlined">dashboard</span>
-        <span>Dashboard</span>
+    <nav class="flex-1 space-y-1.5 overflow-y-auto">
+      <a href="dashboard.html" title="Dashboard" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-secondary bg-sky-50 border-r-4 border-secondary transition-all">
+        <span class="material-symbols-outlined shrink-0">dashboard</span>
+        <span class="nav-text">Dashboard</span>
       </a>
 
-      <a href="AssignBook.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">assignment_turned_in</span>
-        <span>Assign Book</span>
+      <a href="AssignBook.html" title="Assign Book" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">assignment_turned_in</span>
+        <span class="nav-text">Assign Book</span>
       </a>
 
-      <a href="book_history.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">book_online</span>
-        <span>Book History</span>
+      <a href="book_history.html" title="Book History" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">book_online</span>
+        <span class="nav-text">Book History</span>
       </a>
 
-      <a href="Totalbooks.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">library_books</span>
-        <span>Total Books</span>
+      <a href="Totalbooks.html" title="Total Books" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">library_books</span>
+        <span class="nav-text">Total Books</span>
       </a>
 
-      <a href="active-members.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">group</span>
-        <span>Active Members</span>
+      <a href="active-members.html" title="Active Members" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">group</span>
+        <span class="nav-text">Active Members</span>
       </a>
 
-      <a href="program.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">event</span>
-        <span>Programs & Events</span>
+      <a href="program.html" title="Programs & Events" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">event</span>
+        <span class="nav-text">Programs & Events</span>
       </a>
 
-      <a href="finance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
-        <span class="material-symbols-outlined">payments</span>
-        <span>Income & Expense</span>
+      <a href="finance.html" title="Income & Expense" class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-slate-100 transition-colors">
+        <span class="material-symbols-outlined shrink-0">payments</span>
+        <span class="nav-text">Income & Expense</span>
       </a>
     </nav>
 
+    <!-- Sidebar User Footer -->
     <div class="pt-4 border-t border-outline-variant flex items-center gap-3">
-      <div class="flex-1 min-w-0">
+      <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs shrink-0 text-slate-700">A</div>
+      <div class="user-info flex-1 min-w-0">
         <p class="text-sm font-semibold text-on-surface truncate">Admin User</p>
         <p class="text-[11px] text-on-surface-variant truncate">admin@scholararchive.edu</p>
       </div>
@@ -92,10 +114,16 @@
   </aside>
 
   <!-- Main Canvas -->
-  <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+  <div id="main-canvas" class="flex-1 lg:ml-64 flex flex-col h-screen overflow-hidden transition-all duration-300 min-w-0">
     
-    <header class="bg-white border-b border-outline-variant h-16 px-8 flex justify-between items-center z-10 flex-shrink-0">
-      <div class="flex-1 max-w-md">
+    <!-- Header Bar -->
+    <header class="bg-white border-b border-outline-variant h-16 px-4 lg:px-8 flex justify-between items-center z-10 flex-shrink-0 gap-3">
+      <div class="flex items-center gap-3 flex-1 max-w-md">
+        <!-- Mobile Sidebar Toggle -->
+        <button onclick="toggleSidebarMenu(true)" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+
         <div class="relative w-full">
           <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
           <input id="global-search" onkeyup="filterLedgerTable()" class="w-full bg-slate-100 border border-slate-200 rounded-xl py-2 pl-10 pr-4 text-xs text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/30 transition-all" placeholder="Search loans, member names, or books..." type="text"/>
@@ -105,17 +133,19 @@
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-          <span>MySQL Database Online</span>
+          <span class="hidden sm:inline">MySQL Database Online</span>
+          <span class="sm:hidden">Online</span>
         </div>
       </div>
     </header>
 
-    <main class="flex-1 overflow-y-auto p-8 space-y-8">
+    <!-- Dashboard Content Canvas -->
+    <main class="flex-1 overflow-y-auto p-4 lg:p-8 space-y-6 lg:space-y-8">
       
-      <!-- Metrics Grid (3 Cards Only) -->
-      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Metrics Grid (3 Cards) -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         <!-- Card 1: Total Catalog Books -->
-        <div onclick="window.location.href='Totalbooks.html'" class="bg-white p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-secondary transition-all group">
+        <div onclick="window.location.href='Totalbooks.html'" class="bg-white p-5 lg:p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-secondary transition-all group">
           <div class="flex justify-between items-start">
             <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider group-hover:text-secondary">Total Catalog Books</span>
             <span class="material-symbols-outlined text-secondary bg-sky-50 p-2 rounded-xl text-[20px]">library_books</span>
@@ -129,7 +159,7 @@
         </div>
 
         <!-- Card 2: Active Members Count -->
-        <div onclick="window.location.href='active-members.html'" class="bg-white p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-emerald-600 transition-all group">
+        <div onclick="window.location.href='active-members.html'" class="bg-white p-5 lg:p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-emerald-600 transition-all group">
           <div class="flex justify-between items-start">
             <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider group-hover:text-emerald-700">Active Members</span>
             <span class="material-symbols-outlined text-emerald-700 bg-emerald-50 p-2 rounded-xl text-[20px]">group</span>
@@ -143,7 +173,7 @@
         </div>
 
         <!-- Card 3: Books Currently Assigned -->
-        <div onclick="window.location.href='AssignBook.html'" class="bg-white p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-amber-600 transition-all group">
+        <div onclick="window.location.href='AssignBook.html'" class="bg-white p-5 lg:p-6 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between cursor-pointer hover:border-amber-600 transition-all group sm:col-span-2 lg:col-span-1">
           <div class="flex justify-between items-start">
             <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider group-hover:text-amber-700">Books Assigned</span>
             <span class="material-symbols-outlined text-amber-700 bg-amber-50 p-2 rounded-xl text-[20px]">assignment_turned_in</span>
@@ -159,7 +189,7 @@
 
       <!-- RECENT LOANS TABLE -->
       <section class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
-        <div class="p-6 border-b border-outline-variant flex justify-between items-center">
+        <div class="p-4 lg:p-6 border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <div>
             <h3 class="font-bold text-base text-primary">Recent Loans Ledger (MySQL)</h3>
             <p class="text-xs text-on-surface-variant">Real-time status of books assigned and returned.</p>
@@ -171,7 +201,7 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-xs">
+          <table class="w-full text-left border-collapse text-xs min-w-[650px]">
             <thead>
               <tr class="bg-slate-50 border-b border-outline-variant font-bold text-on-surface-variant uppercase tracking-wider">
                 <th class="py-3 px-6">Book Number</th>
@@ -183,7 +213,7 @@
               </tr>
             </thead>
             <tbody id="admin-ledger-body" class="divide-y divide-slate-100">
-              <!-- Loaded from MySQL -->
+              <!-- Loaded from Cloud MySQL API -->
             </tbody>
           </table>
         </div>
@@ -193,10 +223,44 @@
   </div>
 
   <script>
-    const MYSQL_BOOKS_URL = "http://localhost:5000/api/books";
-    const MYSQL_MEMBERS_URL = "http://localhost:5000/api/members";
+    // Live Render API Base URL
+    const API_BASE = "https://nalandha.onrender.com/api";
+    const MYSQL_BOOKS_URL = `${API_BASE}/books`;
+    const MYSQL_MEMBERS_URL = `${API_BASE}/members`;
+    const MYSQL_ASSIGNED_URL = `${API_BASE}/assigned-books`;
 
     let allLoansData = [];
+    let isCollapsed = false;
+
+    // INTERACTIVE SIDEBAR MENU TOGGLE
+    function toggleSidebarMenu(forceState) {
+      const sidebar = document.getElementById('sidebar');
+      const mainCanvas = document.getElementById('main-canvas');
+      const backdrop = document.getElementById('mobile-backdrop');
+      const isMobile = window.innerWidth < 1024;
+
+      if (isMobile) {
+        // Mobile Drawer Slide Toggle
+        const open = forceState !== undefined ? forceState : sidebar.classList.contains('-translate-x-full');
+        if (open) {
+          sidebar.classList.remove('-translate-x-full');
+          backdrop.classList.remove('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          backdrop.classList.add('hidden');
+        }
+      } else {
+        // Desktop Collapse/Expand Toggle
+        isCollapsed = forceState !== undefined ? !forceState : !isCollapsed;
+        if (isCollapsed) {
+          sidebar.classList.add('sidebar-collapsed');
+          mainCanvas.classList.add('main-expanded');
+        } else {
+          sidebar.classList.remove('sidebar-collapsed');
+          mainCanvas.classList.remove('main-expanded');
+        }
+      }
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
       await fetchTotalBooksCount();
@@ -209,20 +273,17 @@
       const assignedCountEl = document.getElementById('assigned-books-count');
 
       try {
-        const response = await fetch(MYSQL_BOOKS_URL + "?action=getBooks");
+        const response = await fetch(MYSQL_BOOKS_URL);
         const result = await response.json();
+        const booksList = Array.isArray(result) ? result : (result.data || []);
 
-        if (result.status === "success" && Array.isArray(result.data)) {
-          countEl.innerText = result.data.length.toLocaleString();
-          const assignedBooks = result.data.filter(b => b.assignedTo && b.assignedTo.trim() !== "");
-          assignedCountEl.innerText = assignedBooks.length.toLocaleString();
-        } else {
-          countEl.innerText = "0";
-          assignedCountEl.innerText = "0";
-        }
+        countEl.innerText = booksList.length.toLocaleString();
+        const assignedBooks = booksList.filter(b => b.assignedTo && b.assignedTo.trim() !== "");
+        assignedCountEl.innerText = assignedBooks.length.toLocaleString();
       } catch (error) {
         console.error("Error fetching books count:", error);
-        countEl.innerText = "Error";
+        countEl.innerText = "0";
+        assignedCountEl.innerText = "0";
       }
     }
 
@@ -232,16 +293,13 @@
       try {
         const response = await fetch(MYSQL_MEMBERS_URL);
         const result = await response.json();
+        const membersList = Array.isArray(result) ? result : (result.data || []);
 
-        if (result.status === "success" && Array.isArray(result.data)) {
-          const activeMembers = result.data.filter(m => !m.status || m.status.toLowerCase() === 'active');
-          countEl.innerText = activeMembers.length.toLocaleString();
-        } else {
-          countEl.innerText = "0";
-        }
+        const activeMembers = membersList.filter(m => !m.status || m.status.toLowerCase() === 'active');
+        countEl.innerText = activeMembers.length.toLocaleString();
       } catch (error) {
         console.error("Error fetching active members count:", error);
-        countEl.innerText = "Error";
+        countEl.innerText = "0";
       }
     }
 
@@ -249,32 +307,34 @@
       const tbody = document.getElementById('admin-ledger-body');
 
       try {
-        const response = await fetch(MYSQL_BOOKS_URL + "?action=getLoans");
+        const response = await fetch(MYSQL_ASSIGNED_URL);
         const result = await response.json();
+        allLoansData = Array.isArray(result) ? result : (result.data || []);
 
-        if (result.status === "success" && Array.isArray(result.data)) {
-          allLoansData = result.data;
+        if (allLoansData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-400">No borrowing records in MySQL database.</td></tr>`;
+        } else {
+          tbody.innerHTML = allLoansData.slice(0, 10).map(l => {
+            const statusVal = l.status || 'Pending';
+            const isReturned = statusVal.toLowerCase() === 'returned';
 
-          if (allLoansData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-400">No borrowing records in MySQL database.</td></tr>`;
-          } else {
-            tbody.innerHTML = allLoansData.slice(0, 10).map(l => `
+            return `
               <tr class="ledger-row hover:bg-slate-50 transition-colors">
                 <td class="py-3 px-6 font-mono font-bold text-sky-700">#${l.bookNumber || 'N/A'}</td>
-                <td class="py-3 px-6 font-bold text-slate-900">${l.bookName}</td>
-                <td class="py-3 px-6 font-medium text-slate-600">${l.memberName}</td>
-                <td class="py-3 px-6 text-slate-500">${l.receivedDate}</td>
-                <td class="py-3 px-6 text-slate-500">${l.submittedDate}</td>
+                <td class="py-3 px-6 font-bold text-slate-900">${l.bookName || 'N/A'}</td>
+                <td class="py-3 px-6 font-medium text-slate-600">${l.memberName || 'N/A'}</td>
+                <td class="py-3 px-6 text-slate-500">${l.receivedDate || '-'}</td>
+                <td class="py-3 px-6 text-slate-500">${l.submittedDate || '-'}</td>
                 <td class="py-3 px-6 text-right">
-                  <span class="px-2.5 py-1 rounded-full ${l.status.toLowerCase() === 'returned' ? 'bg-slate-100 text-slate-700' : 'bg-amber-100 text-amber-800'} font-bold text-[10px]">${l.status}</span>
+                  <span class="px-2.5 py-1 rounded-full ${isReturned ? 'bg-slate-100 text-slate-700' : 'bg-amber-100 text-amber-800'} font-bold text-[10px]">${statusVal}</span>
                 </td>
               </tr>
-            `).join('');
-          }
+            `;
+          }).join('');
         }
       } catch (err) {
         console.error("Ledger fetch error:", err);
-        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-500">Failed to load ledger from MySQL API.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-rose-500">Failed to load ledger from Cloud MySQL API.</td></tr>`;
       }
     }
 
